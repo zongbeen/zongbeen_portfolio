@@ -5,6 +5,7 @@ export const PROFILE = {
   "headline": "iOS 제품을 설계부터 출시·운영까지 연결합니다.",
   "summary": "C, Objective-C, Swift를 바탕으로 iOS SDK와 앱의 전체 생애주기를 책임진 경험을 정리합니다.",
   "displayName": "한종빈",
+  "idRole": "iOS개발자 3년차",
   "handle": "ZONGBEEN",
   "email": "hjb825@naver.com",
   "phone": "010-5050-5276",
@@ -76,9 +77,9 @@ export const SKILLS = [
       "MVC",
       "Coordinator",
       "Clean Architecture",
-      "모듈화",
-      "코드 리뷰",
-      "단위 테스트"
+      "Modularization",
+      "Code Review",
+      "Unit Testing"
     ]
   },
   {
