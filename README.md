@@ -2,6 +2,10 @@
 
 한종빈의 말하는 포트폴리오입니다.
 
+배포 주소: https://zongbeenportfolio.vercel.app
+
+GitHub: https://github.com/zongbeen/zongbeen_portfolio
+
 빌드가 필요 없는 정적 사이트입니다. `dist/`를 웹 서버에서 제공하면 됩니다.
 
 ## Vercel 배포
