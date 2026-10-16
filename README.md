@@ -48,11 +48,3 @@ Vercel 응답 헤더는 `vercel.json`에 정의합니다. 기존 `dist/_headers`
 모션 감소 설정에서는 장식 모션과 Lenis를 끄고 성과 카드를 일반 세로 흐름으로 제공합니다. 웹 화면에는 전화번호를 노출하지 않습니다. 다운로드 PDF는 제공된 원본입니다.
 
 색인 방지 메타데이터와 `_headers`의 X-Robots-Tag를 포함합니다. 호스팅 제공자가 `_headers`를 지원하는지와 별도로 HTML에도 noindex가 적용됩니다.
-
-## 캐릭터 배경 제거
-
-히어로는 투명 알파 채널이 있는 `dist/hero/intro-cutout.webm`과 `portrait-cutout.png`를 사용합니다. VP9 알파를 지원하지 않는 브라우저는 페이지 배경색(`#f4f2ee`)으로 합성한 `intro-paper.mp4`로 전환합니다. 원본 영상의 음성과 24fps·5.5초 루프를 유지합니다.
-
-이름, 캐릭터, 소개 문구는 각각 독립된 행에 배치합니다. 영상의 흰색 배경을 숨기기 위한 CSS 혼합 효과는 사용하지 않습니다.
-
-에셋 재생성에는 Python, FFmpeg, `scripts/requirements-hero.txt`의 도구가 필요합니다. `python scripts/generate-hero-cutout.py`로 생성하며, 첫 실행에는 U2NetP 모델을 내려받습니다. 처리는 로컬에서 수행됩니다. 모델 저장 위치는 `U2NET_HOME`으로 지정할 수 있습니다.
