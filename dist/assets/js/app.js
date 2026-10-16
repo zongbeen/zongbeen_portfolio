@@ -1,3 +1,4 @@
+import {prepareHeroLoop} from './hero-loop.js';
 import {PROFILE,NAV,SKILLS,WORK,CAREER,ACHIEVEMENTS,CONTACT,COPY,SKILL_LOGOS} from './data.js';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -25,6 +26,8 @@ $$('.element').forEach(e=>{e.addEventListener('pointerenter',()=>selectSkill(+e.
 function activatePanel(panel){$$('.work-panel').forEach(p=>{const active=p===panel;p.classList.toggle('active',active);p.querySelector('button').setAttribute('aria-expanded',active);p.querySelector('.work-body').inert=!active})}$$('.work-panel').forEach(p=>{p.querySelector('button').addEventListener('click',()=>activatePanel(p));p.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&innerWidth>760&&!p.contains(document.activeElement))activatePanel(p)})});
 const card=$('.id-card');function flip(){card.classList.toggle('flipped');card.setAttribute('aria-pressed',card.classList.contains('flipped'))}card.addEventListener('click',flip);card.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&!reduced&&!card.classList.contains('flipped'))flip()});$('.id-wrap').addEventListener('pointermove',e=>{if(reduced)return;const r=e.currentTarget.getBoundingClientRect();$('.id-swing').style.setProperty('--swing',`${((e.clientX-r.left)/r.width-.5)*12}deg`)});$('.id-wrap').addEventListener('pointerleave',()=>$('.id-swing').style.setProperty('--swing','3deg'));
 const video=$('#hero-video'),sound=$('.sound');let heroVisible=true,audioWanted=false,blocked=true,autoTried=false;function updateSound(){sound.classList.toggle('blocked',blocked);sound.setAttribute('aria-pressed',audioWanted&&!video.muted);sound.setAttribute('aria-label',video.muted?'영상 소리 켜기':'영상 소리 끄기');sound.firstElementChild.textContent=video.muted?'▶':'❚❚';$('.sound-status').textContent=video.muted?'소리 켜기':'소리 재생 중'}async function enableAudio(){if(!heroVisible)return;audioWanted=true;video.muted=false;try{await video.play();blocked=false}catch{video.muted=true;audioWanted=false;blocked=true;video.play().catch(()=>{})}updateSound()}
+prepareHeroLoop(video,()=>heroVisible&&!document.hidden);
+video.addEventListener('emptied',()=>{const stage=video.closest('.hero-stage');stage.querySelector('.hero-matte')?.remove();stage.classList.remove('hero-stage--canvas')});
 // H.264 carries color and its grayscale matte side by side for browsers without VP9 alpha.
 // The 2D canvas is only activated for that fallback; the same video drives both pixels and audio.
 function enableHeroMatte(){
@@ -39,7 +42,7 @@ function enableHeroMatte(){
   const frame=output.createImageData(canvas.width,canvas.height);
   stage.append(canvas);stage.classList.add('hero-stage--canvas');
   function draw(){
-    if(video.readyState<2)return;
+    if(!canvas.isConnected||video.readyState<2)return;
     reader.drawImage(video,0,0);
     const pixels=reader.getImageData(0,0,packed.width,packed.height).data;
     const width=canvas.width,height=canvas.height;
@@ -51,18 +54,18 @@ function enableHeroMatte(){
     output.putImageData(frame,0,0);
   }
   if(video.requestVideoFrameCallback){
-    const next=()=>{draw();video.requestVideoFrameCallback(next)};
+    const next=()=>{if(!canvas.isConnected)return;draw();video.requestVideoFrameCallback(next)};
     video.requestVideoFrameCallback(next);
   }else{
     let scheduled=0;
-    const next=()=>{draw();scheduled=video.paused?0:requestAnimationFrame(next)};
+    const next=()=>{if(!canvas.isConnected){scheduled=0;return}draw();scheduled=video.paused?0:requestAnimationFrame(next)};
     video.addEventListener('playing',()=>{if(!scheduled)scheduled=requestAnimationFrame(next)});
     video.addEventListener('seeked',draw);
   }
   draw();
 }
 function checkHeroAlpha(){
-  if(video.currentSrc.endsWith('intro-portrait.mp4')){enableHeroMatte();return;}
+  if(video.dataset.heroPlayback==='continuous-matte'||video.currentSrc.endsWith('intro-portrait.mp4')){enableHeroMatte();return;}
   if(!video.currentSrc.endsWith('intro-portrait.webm'))return;
   const canvas=document.createElement('canvas');canvas.width=canvas.height=1;
   const context=canvas.getContext('2d',{willReadFrequently:true});if(!context)return;
