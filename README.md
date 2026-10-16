@@ -10,6 +10,10 @@ GitHub: https://github.com/zongbeen/zongbeen_portfolio
 
 ## Vercel 배포
 
+GitHub의 `main` 브랜치에 푸시하거나 PR을 병합하면 Vercel이 프로덕션 사이트를 자동으로 배포합니다. 연결된 Vercel 프로젝트는 `zongbeen/zongbeen_portfolio`입니다.
+
+아래 명령은 수동 배포가 필요할 때 사용합니다.
+
 `zongbeen_portfolio/` 폴더에서 실행하세요.
 
 ```sh
