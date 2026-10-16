@@ -2,6 +2,21 @@
 
 빌드가 필요 없는 정적 사이트입니다. `dist/`를 웹 서버에서 제공하면 됩니다.
 
+## Vercel 배포
+
+`talking-portfolio/` 폴더에서 실행하세요.
+
+```sh
+npx vercel login
+npx vercel --prod
+```
+
+`vercel.json`에서 빌드와 의존성 설치 없이 `dist/`를 배포하도록 설정합니다. 환경 변수는 필요하지 않습니다. `.vercel/`의 프로젝트 연결 정보는 Git에서 제외합니다.
+
+Git 저장소를 Vercel에 연결하는 경우 Root Directory는 이 README가 있는 폴더, Framework Preset은 **Other**, Output Directory는 **dist**로 설정하세요. Build Command와 Install Command는 비워 두세요. 현재 저장소 루트가 `talking-portfolio/`이면 Root Directory는 기본값을 사용합니다.
+
+Vercel 응답 헤더는 `vercel.json`에 정의합니다. 기존 `dist/_headers`와 동일하게 검색 색인 방지와 보안 헤더를 유지합니다.
+
 - 콘텐츠: `dist/assets/js/data.js`
 - 화면과 동작: `dist/assets/js/app.js`
 - 스타일: `dist/assets/css/style.css`
