@@ -2,3 +2,10 @@
 .openai
 .DS_Store
 README.md
+.local
+.env*
+.gitignore
+intro.mp4
+zongbeen.JPG
+zongbeen_ai.jpeg
+zongbeen_portfolio-deploy.tar.gz

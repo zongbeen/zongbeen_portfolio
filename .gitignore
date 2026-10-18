@@ -1,3 +1,33 @@
 .vercel/
 .DS_Store
 .env*
+
+# 개인 작업 안내, 원본 자료, 배포 압축파일
+/.local/
+/intro.mp4
+/zongbeen.JPG
+/zongbeen_ai.jpeg
+/zongbeen_portfolio-deploy.tar.gz
+
+# 로컬 호스팅 연결 정보
+/.openai/
+
+# 개발 도구와 임시 파일
+node_modules/
+*.log
+__pycache__/
+
+# 사용하지 않는 이전 히어로 에셋 (로컬 보관 위치: .local/archive/hero/)
+/dist/hero/intro.mp4
+/dist/hero/intro.webm
+/dist/hero/portrait.jpg
+
+# 로컬 개발 캐시와 편집기 임시 파일
+.vscode/
+.idea/
+.cache/
+.vercel/cache/
+*.pyc
+*.swp
+*.swo
+*~
