@@ -352,6 +352,76 @@ function renderSkills() {
 }
 
 // Work 섹션
+// 같은 프로젝트의 FR·ST 사례는 cases 배열로 관리하며, 처음에는 모두 접어 둡니다.
+function renderWorkCases(cases) {
+  return /* HTML */ `
+    <div class="work-cases">
+      ${cases
+        .map(
+          (item) => /* HTML */ `
+            <details class="work-case">
+              <summary>
+                <span>${esc(item.title)}</span>
+                <small>${esc(item.period)}</small>
+              </summary>
+              <div class="work-case-content">
+                <p class="work-text">${esc(item.problem)}</p>
+                <div class="work-points">
+                  <div>
+                    <h4>${COPY.workApproach}</h4>
+                    <p tabindex="0">${esc(item.solution)}</p>
+                  </div>
+                  <div>
+                    <h4>${COPY.workOutcome}</h4>
+                    <p tabindex="0">${esc(item.outcome)}</p>
+                  </div>
+                </div>
+                ${
+                  item.metrics?.length
+                    ? /* HTML */ `
+                        <dl class="work-case-metrics">
+                          ${item.metrics
+                            .map(
+                              (metric) => /* HTML */ `
+                                <div>
+                                  <dt>${esc(metric.label)}</dt>
+                                  <dd>${esc(metric.value)}</dd>
+                                  <small>${esc(metric.note)}</small>
+                                </div>
+                              `,
+                            )
+                            .join("")}
+                        </dl>
+                      `
+                    : ""
+                }
+                ${
+                  item.aiWorkflow?.length
+                    ? /* HTML */ `
+                        <div class="work-case-workflow">
+                          <h4>${COPY.workAiWorkflow}</h4>
+                          <ol>
+                            ${item.aiWorkflow
+                              .map(
+                                (step) => /* HTML */ `
+                                  <li>${esc(step)}</li>
+                                `,
+                              )
+                              .join("")}
+                          </ol>
+                        </div>
+                      `
+                    : ""
+                }
+              </div>
+            </details>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
 function renderWork() {
   return /* HTML */ `
     <section class="section" id="work" aria-labelledby="work-title">
@@ -380,7 +450,9 @@ function renderWork() {
                   <div class="mono">${p.period}</div>
                   <h3>${p.title}</h3>
                   <p class="role">${p.role}</p>
-                  <div class="work-detail">
+                  <div
+                    class="work-detail ${p.cases?.length ? "work-detail--cases" : ""}"
+                  >
                     <div>
                       <p class="work-text">${p.problem}</p>
                       <div class="work-points">
@@ -394,8 +466,9 @@ function renderWork() {
                         </div>
                       </div>
                     </div>
-                    ${workUI(p)}
+                    ${p.cases?.length ? "" : workUI(p)}
                   </div>
+                  ${p.cases?.length ? renderWorkCases(p.cases) : ""}
                   <div class="tool-chips">
                     ${p.technologies
                       .map(

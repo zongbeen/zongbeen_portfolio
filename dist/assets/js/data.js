@@ -18,7 +18,7 @@ export const PROFILE = {
   name: "한종빈 (zongbeen)",
   role: "iOS 개발자",
   experienceLabel: "iOS 개발 3년 5개월",
-  headline: "iOS 제품을 설계부터 출시·운영까지 연결합니다.",
+  headline: "iOS 제품 설계부터 출시·운영까지 연결합니다.",
   summary:
     "C, Objective-C, Swift를 바탕으로 iOS SDK와 앱의 전체 생애주기를 책임진 경험을 정리합니다.",
   displayName: "한종빈",
@@ -31,7 +31,7 @@ export const PROFILE = {
   notionUrl:
     "https://www.notion.so/19ecaf72207f81fe8d4fcc5dbc7a6b3d?source=copy_link",
   pdfPath: "/resume.pdf",
-  quote: "iOS 제품을 설계부터 출시·운영까지 연결합니다.",
+  quote: "iOS 제품 설계부터 출시·운영까지 연결합니다.",
   initials: "ZB",
 };
 
@@ -39,10 +39,10 @@ export const PROFILE = {
 // title, description, experience도 각각 독립적으로 수정할 수 있습니다.
 // media의 경로는 dist/index.html 기준입니다. loopLength는 영상 파일의 실제 길이와 맞춰야 합니다.
 export const HERO = {
-  eyebrow: "iOS 개발자 · 이니텍",
+  eyebrow: "iOS 개발자",
   wordmark: "ZONGBEEN",
-  title: "iOS 개발자, 한종빈",
-  description: "iOS 제품을 설계부터 출시·운영까지 연결합니다.",
+  title: "iOS 개발자 한종빈",
+  description: "iOS 제품 설계부터 출시·운영까지 연결합니다.",
   actions: [
     {
       label: "작업 보기",
@@ -162,6 +162,7 @@ export const SKILLS = [
 // 대표 작업: links[].label을 그대로 버튼에 표시합니다.
 // uiAsset에 이미지 경로를 넣으면 실제 이미지를 표시합니다.
 // 이미지가 없을 때 illustration이 있으면 설명용 UI, null이면 이미지 준비 영역을 표시합니다.
+// WORK의 cases는 같은 프로젝트 안의 개별 재설계 사례입니다. metrics는 측정 기준과 함께, aiWorkflow는 실제 역할 순서로 적습니다.
 export const WORK = [
   {
     id: "inihub-app",
@@ -181,6 +182,7 @@ export const WORK = [
       "UIKit",
       "SwiftUI",
       "MVVM",
+      "MVC",
       "Coordinator",
       "URLSession",
       "WKWebView",
@@ -223,22 +225,106 @@ export const WORK = [
   },
   {
     id: "sample-app-redesign",
-    title: "XSafe·MobilianWeb 전면 재설계",
-    period: "2024.12 ~ 2025.06",
-    role: "iOS 단독 개발(재설계·구현) / 팀 1명 (iOS 1)",
+    title: "XSafe·MobilianWeb 샘플 앱 재설계",
+    period: "FR 2024.12 ~ 2025.06 · ST 2026.08 말 ~ 2026.09 중순",
+    role: "iOS 단독 담당 · FR 설계·구현 / ST 요구사항·구조 설계·코드 검증·실기기 테스트",
     problem:
-      "XSafe SDK와 MobilianWeb 앱은 외부 개발자를 위한 API 가이드 목적의 샘플 앱을 함께 제공합니다. 기존 샘플 앱은 UI 구조가 분산되어 읽기 어렵고 API 가이드와 무관한 기능(NotificationCenter 처리, Custom Delegate 등)이 섞여 있어 고객사의 개선 요청이 들어왔습니다.",
+      "XSafe는 기존 Static Library(ST)와 기존 API를 래핑한 Framework·XCFramework(FR)를 함께 제공하며, ST 사용 고객사 지원을 위해 두 방식을 모두 유지보수합니다. 외부 개발자가 API 사용법을 쉽게 파악하도록 FR과 ST 샘플 앱을 각각 재설계했습니다.",
     solution:
-      "부분 수정 대신 샘플 앱 전체를 처음부터 다시 설계하고 구현했습니다. iOS 공식 디자인 가이드와 기본 설정·캘린더 앱의 UI/UX 패턴을 참고해, 버튼 나열 방식을 Table View 기반 UI로 전환하고 Alert 팝업 입력을 전용 입력 화면으로 교체했습니다. 설정 기능은 각 화면 우측 버튼에 배치해 기능 간 연결성을 높였습니다. 데이터 처리도 함께 정리했습니다. 버튼 클릭 시 NotificationCenter로 알림을 보내고 전역 변수에 저장하던 기존 구조는 동시성 이슈와 상태 보장 문제가 있어, 버튼 하나에 하나의 플로우가 대응되는 단일 흐름 구조로 바꾸고 GCD 기반 비동기 처리를 Swift Concurrency(async/await)로 전환했습니다.",
+      "FR은 UI와 데이터 흐름을 API 가이드 목적에 맞게 정리했습니다. ST는 최신 SDK의 Scene 생명주기 요구에 대응하면서 MVVM·Service·Context 중심으로 구조를 바꿨습니다. ST의 요구사항과 개선 방향은 직접 정하고, Claude Code에 구현·테스트 작성을 맡긴 뒤 코드와 실기기 동작을 재확인했습니다.",
     outcome:
-      "API 안내에 집중한 구조로 정리해 SDK 가이드 본래의 역할을 명확히 했습니다. Table View 기반 UI와 iOS 디자인 가이드 준수로 외부 개발자가 API를 파악하기 쉬워졌고, 데이터 흐름 단순화와 async/await 전환으로 신규 기능 추가와 UX 수정이 수월해졌습니다.",
+      "FR은 API 안내와 기능 확장이 쉬운 구조로 개선했습니다. ST는 주석 제외 전체 코드를 16,386줄에서 6,742줄로, ViewController 개수를 37개에서 4개로 줄였습니다. XIB 38개·4,304줄을 Storyboard로 통합해 XIB를 제거했고, 하드코딩을 73개에서 2개로 축소했습니다. Service 단위 테스트 통과와 전 기능 실기기 테스트 완료 후 고객사 1곳에 배포했습니다.",
+    cases: [
+      {
+        title: "FR — API 가이드 구조 개선",
+        period: "2024.12 ~ 2025.06",
+        problem:
+          "XSafe SDK와 MobilianWeb 앱은 외부 개발자를 위한 API 가이드 목적의 샘플 앱을 함께 제공합니다. 기존 샘플 앱은 UI 구조가 분산되어 읽기 어렵고 API 가이드와 무관한 기능(NotificationCenter 처리, Custom Delegate 등)이 섞여 있어 고객사의 개선 요청이 들어왔습니다.",
+        solution:
+          "부분 수정 대신 샘플 앱 전체를 처음부터 다시 설계하고 구현했습니다. iOS 공식 디자인 가이드와 기본 설정·캘린더 앱의 UI/UX 패턴을 참고해, 버튼 나열 방식을 Table View 기반 UI로 전환하고 Alert 팝업 입력을 전용 입력 화면으로 교체했습니다. 설정 기능은 각 화면 우측 버튼에 배치해 기능 간 연결성을 높였습니다. 데이터 처리도 함께 정리했습니다. 버튼 클릭 시 NotificationCenter로 알림을 보내고 전역 변수에 저장하던 기존 구조는 동시성 이슈와 상태 보장 문제가 있어, 버튼 하나에 하나의 플로우가 대응되는 단일 흐름 구조로 바꾸고 GCD 기반 비동기 처리를 Swift Concurrency(async/await)로 전환했습니다.",
+        outcome:
+          "API 안내에 집중한 구조로 정리해 SDK 가이드 본래의 역할을 명확히 했습니다. Table View 기반 UI와 iOS 디자인 가이드 준수로 외부 개발자가 API를 파악하기 쉬워졌고, 데이터 흐름 단순화와 async/await 전환으로 신규 기능 추가와 UX 수정이 수월해졌습니다. 앱 코드 전체는 약 9,160줄에서 6,176줄로 줄였고, Storyboard와 ViewModel 코드도 함께 축소했습니다.",
+        metrics: [
+          {
+            label: "앱 코드 전체",
+            value: "약 32.6% 감소",
+            note: "약 9,160줄 → 6,176줄",
+          },
+          {
+            label: "Storyboard",
+            value: "32.9% 감소",
+            note: "2,890줄 → 1,938줄",
+          },
+          {
+            label: "ViewModel (Swift)",
+            value: "37.9% 감소",
+            note: "2,517줄 → 1,564줄",
+          },
+          {
+            label: "SignViewModel (Swift)",
+            value: "59.2% 감소",
+            note: "1,022줄 → 417줄",
+          },
+          {
+            label: "ManageViewModel (Swift)",
+            value: "36.9% 감소",
+            note: "781줄 → 493줄",
+          },
+        ],
+      },
+      {
+        title: "ST — 최신 환경 대응과 구조 개선",
+        period: "2026.08 말 ~ 2026.09 중순",
+        problem:
+          "Xcode 27·iOS 27·macOS 27 출시 후 실기기 호환성 테스트 중, ST 샘플 앱이 AppDelegate 메서드 호출 전에 런타임 오류로 종료되는 문제를 발견했습니다. 오류 로그와 Apple 공식 문서, Google·GitHub 검색, AI 질의를 교차 확인해 최신 SDK의 UIScene 생명주기 요구를 파악했습니다. 다수의 XIB로 유지보수도 어려워 호환성 수정과 함께 재설계를 진행했습니다.",
+        solution:
+          "Scene 생명주기를 도입하고 여러 XIB를 하나의 Storyboard로 통합했습니다. 생성된 코드가 여러 곳에 분산된 것을 확인한 뒤 MVVM으로 역할을 나누고 XSafe 함수 호출을 Service 계층에 모으도록 지시했습니다. URL·정규식 패턴·화면 문구·설정값은 Context에 집중시켰습니다. FR에서 사용 중인 대체 함수도 활용했습니다.",
+        outcome:
+          "외부 개발자가 Service에서 XSafe 함수 사용법을 직관적으로 읽고 검색할 수 있게 개선했습니다. Claude Code가 작성한 Service 로직 단위 테스트를 실행해 모두 통과한 것을 확인하고, 재설계 샘플의 전 기능을 직접 실기기에서 재확인했습니다. 고객사 1곳에 배포했습니다.",
+        metrics: [
+          {
+            label: "전체 코드",
+            value: "58.9% 감소",
+            note: "16,386줄 → 6,742줄 · 주석 제외",
+          },
+          {
+            label: "XIB 개수",
+            value: "38개 → 0개",
+            note: "4,304줄 → 0줄 · Storyboard로 통합",
+          },
+          {
+            label: "ViewController 개수",
+            value: "37개 → 4개",
+            note: "개수 기준 약 89.2% 감소",
+          },
+          {
+            label: "하드코딩 지점",
+            value: "73개 → 2개",
+            note: "URL·정규식·화면 문구·설정값",
+          },
+          {
+            label: "고객사 배포",
+            value: "1곳",
+            note: "전 기능 실기기 테스트 완료",
+          },
+        ],
+        aiWorkflow: [
+          "직접 재설계 요구사항과 구조 개선 방향을 지정했습니다.",
+          "Claude Code 단독으로 전체 기능 구현과 Service 단위 테스트 작성을 진행했습니다.",
+          "생성된 코드를 검증해 MVVM·Service 분리를 지시하고, 실기기에서 전 기능을 재확인했습니다.",
+        ],
+      },
+    ],
     technologies: [
       "Swift",
       "Objective-C",
       "C",
       "UIKit",
+      "Storyboard",
       "MVC",
+      "MVVM",
       "Swift Concurrency",
+      "Claude Code",
     ],
     links: [],
     uiAsset: null,
@@ -385,7 +471,7 @@ export const COPY = {
     "인증·보안 모듈 개발",
     "AI 코드 에이전트 활용",
   ],
-  idHint: "클릭 또는 Enter로 뒤집어 보세요 ↔",
+  idHint: "클릭해서 뒤집어 보세요 ↔",
   next: "다음 — 함께할 팀?",
   continuing: "계속 쌓아가는 중 →",
   uiPlaceholder: "실제 UI를 담을 공간",
@@ -407,6 +493,7 @@ export const COPY = {
   skillInspector: "기술 살펴보기",
   relatedWork: "관련 작업",
   noRelatedWork: "이력서에 기재된 기술입니다.",
+  workAiWorkflow: "Claude Code 활용과 담당 역할",
   workApproach: "접근",
   workOutcome: "결과",
   copyEmail: "이메일 복사 ↗",
