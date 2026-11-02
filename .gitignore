@@ -8,7 +8,8 @@
 /zongbeen.JPG
 /zongbeen_ai.jpeg
 /zongbeen_portfolio-deploy.tar.gz
-
+*.serena
+*.claude
 # 로컬 호스팅 연결 정보
 /.openai/
 
