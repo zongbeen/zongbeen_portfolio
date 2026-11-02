@@ -69,7 +69,7 @@ export const HERO = {
     webm: "hero/intro-portrait.webm",
     mp4: "hero/intro-portrait.mp4",
     stream: "hero/intro-portrait-stream.mp4",
-    loopLength: 5.5,
+    loopLength: 7.5,
     label: "한종빈을 표현한 캐릭터 자기소개 영상",
   },
 };
@@ -201,15 +201,15 @@ export const WORK = [
   },
   {
     id: "xsafe-biometric",
-    title: "INISAFE XSafe SDK 생체인증 확장",
+    title: "INISAFE XSafe SDK PIN·생체인증 확장",
     period: "2026.01 ~ 2026.03",
     role: "iOS 단독 개발(SDK 확장·샘플 앱 제작) / 팀 2명 (iOS 1 · AOS 1)",
     problem:
-      "기존 XSafe SDK는 패스워드 기반으로만 공동인증서 기능을 제공해, 서명할 때마다 비밀번호를 입력해야 하는 불편이 컸습니다. 생체인증 지원 여부를 묻는 문의가 이어져 고객사 요구를 충족하고 사용 경험을 개선할 필요가 있었습니다.",
+      "기존 XSafe SDK는 패스워드 기반으로 인증서 기능을 제공해, 서명할 때마다 패스워드를 입력해야 하는 불편이 있었습니다. 생체인증 지원 여부를 묻는 문의가 이어져 고객사 요구를 충족하고 사용 경험을 개선할 필요가 있었습니다.",
     solution:
-      "발급·재발급·폐기·삭제·관리·내보내기·가져오기·서명까지 패스워드로 가능하던 인증서 기능 전체를 생체인증으로도 수행할 수 있도록 iOS SDK를 확장했습니다. LocalAuthentication 기반으로 Face ID·Touch ID 인증 흐름을 설계하고, 생체인증 실패와 미지원 기기 같은 예외 상황의 처리 흐름을 정의했습니다. 패스워드와 생체인증 방식의 동작 차이, 플랫폼별 보안 정책 차이를 분석해 공통 기준과 플랫폼별 분리 항목을 구분하고, API 네이밍·오류 코드·인증 흐름을 문서화해 Android 개발자와의 협업 기준을 세웠습니다.",
+      "패스워드 기반의 iOS SDK에 PIN과 생체인증 방식을 추가했습니다. 생체인증은 PIN으로 발급한 인증서에만 등록할 수 있도록 하고, 해당 인증서의 확장키를 확인한 뒤 생체 등록과 서명을 수행하도록 구성했습니다. 고객사 앱에서 생체인증 API를 호출하면 SDK 내부에서 LocalAuthentication을 통한 인증 요청과 결과 처리를 담당하도록 설계했습니다. Face ID·Touch ID 인증 흐름을 설계하고, 생체인증 실패와 미지원 기기 같은 예외 상황의 처리 흐름을 정의했습니다. PIN과 생체인증 방식의 동작 차이, 플랫폼별 보안 정책 차이를 분석해 공통 기준과 플랫폼별 분리 항목을 구분하고, API 네이밍·오류 코드·인증 흐름을 문서화해 Android 개발자와의 협업 기준을 세웠습니다.",
     outcome:
-      "패스워드 방식과 동일한 범위의 인증서 기능을 생체인증으로 제공해 고객사 요구를 충족했고, 2개 고객사에 도입했습니다. 외부 개발자가 생체인증 API를 바로 참고할 수 있도록 MobilianWeb 샘플 앱을 신규 제작해, 안내 목적에 맞게 불필요한 기능 없이 구성했습니다.",
+      "기존 패스워드 방식에 더해 PIN과 생체인증을 제공하도록 확장했고, 2개 고객사에 도입했습니다. 생체 등록을 마친 인증서는 서명할 인증서를 선택한 뒤 PIN 입력 대신 Face ID·Touch ID로 인증할 수 있습니다. 외부 개발자가 생체인증 API를 바로 참고할 수 있도록 MobilianWeb 샘플 앱을 신규 제작해, 안내 목적에 맞게 불필요한 기능 없이 구성했습니다.",
     technologies: [
       "Objective-C",
       "C",
@@ -220,6 +220,57 @@ export const WORK = [
       "Keychain",
     ],
     links: [],
+    sdkOverview: {
+      title: "PIN·생체인증 SDK 확장 구조",
+      description:
+        "기존 패스워드 기반 SDK에 PIN과 생체인증을 추가했습니다. 고객사 앱은 API를 호출하고, SDK가 생체인증 요청과 결과 처리를 담당합니다.",
+      clientTitle: "고객사 앱 · 샘플 앱",
+      clientDescription: "XSafe 생체인증 API 호출",
+      sdkTitle: "XSafe iOS SDK",
+      capabilities: [
+        {
+          label: "기존",
+          title: "패스워드 기반 인증서 기능",
+        },
+        {
+          label: "이번에 추가",
+          title: "PIN · 생체인증",
+        },
+      ],
+      platformTitle: "iOS LocalAuthentication",
+      platformDescription: "Face ID · Touch ID",
+      registrationTitle: "생체 등록 조건",
+      registrationSteps: ["PIN 발급 인증서", "확장키 확인", "생체 등록"],
+      impactValue: "2곳",
+      impactLabel: "고객사 도입",
+      sampleNote:
+        "샘플 앱은 외부 개발자가 SDK API 사용법을 확인할 수 있도록 별도로 제작했습니다.",
+      flowDetailsLabel: "PIN·생체 서명 사용 흐름 보기",
+    },
+    flowComparison: {
+      title: "추가한 인증 방식의 서명 흐름",
+      description: "PIN 서명과 생체 등록 후 서명의 입력 방식 비교",
+      flows: [
+        {
+          title: "PIN 서명",
+          condition: "이번에 추가한 방식",
+          steps: ["서명할 인증서 선택", "PIN 입력", "서명 결과 확인"],
+          highlightStep: 1,
+        },
+        {
+          title: "생체 서명",
+          condition: "PIN 발급·생체 등록 후",
+          steps: [
+            "서명할 인증서 선택",
+            "Face ID·Touch ID 인증",
+            "서명 결과 확인",
+          ],
+          highlightStep: 1,
+        },
+      ],
+      prerequisite:
+        "PIN으로 발급한 인증서의 확장키를 확인한 후 생체인증을 등록할 수 있습니다.",
+    },
     uiAsset: null,
     illustration: null,
   },
@@ -351,27 +402,36 @@ export const WORK = [
     },
   },
   {
-    id: "ai-resume-site",
-    title: "AI 활용 이력서 웹사이트 개발",
-    period: "2026.09.10 ~ 2026.09.13 (4일간)",
-    role: "기획 초안(Codex) → 개발·수정(Claude Code) / 이력서 콘텐츠 작성·검토·테스트(본인)",
+    id: "ai-portfolio-site",
+    title: "AI 활용 말하는 포트폴리오 구축",
+    period: "배포 후 유지보수·개선 중",
+    role: "콘텐츠 작성·요구사항 정의·결과 검토(본인) / 구현·수정·검증 협업(Codex)",
     problem:
-      "3년째 iOS 개발자로 일하며 업무에서 Claude Code와 Codex를 유지보수 목적으로 써왔지만, 기획부터 배포까지 전 과정에서 AI 코드 에이전트를 실제 업무 수준으로 활용해본 적은 없었습니다. 채용 시즌을 준비하며, 웹 프론트엔드 경험이 없는 상태에서 1인 프로젝트로 직접 시도해보기로 했습니다.",
+      "경력·기술·대표 작업을 소개하는 개인 포트폴리오를 캐릭터 자기소개 영상과 함께 구성했습니다. 영상과 이름이 겹치는 문제, 반복 재생 시 끊김, PC 작업 패널의 과도한 여백 등 실제 미리보기에서 발견한 문제를 해결하고, 콘텐츠를 직접 수정하기 쉬운 구조로 정리할 필요가 있었습니다.",
     solution:
-      "Codex에게 Next.js와 Vercel 기반으로 사이트를 기획·설계하고 프로젝트 초안을 만들도록 맡긴 뒤, 이후 기능 추가와 수정은 Claude Code로 진행했습니다. 이력서에 들어갈 경력 내용과 PDF는 직접 작성했고, 매 단계 결과물을 검토하고 테스트하며 방향을 조율했습니다.",
+      "원하는 화면과 동작을 구체적으로 제시하고 Codex와 구현·수정을 반복했습니다. HTML·CSS·JavaScript로 빌드가 필요 없는 정적 사이트를 구성하고, 캐릭터 영상의 배경 분리와 Canvas 2D 합성, 반복 구간을 미리 버퍼링하는 재생 방식을 적용했습니다. 화면 밖에서는 영상 재생을 멈추도록 제어하고, 모바일 대응과 키보드 조작을 확인했습니다. 문구·사진·프로젝트 정보를 data.js에 모으고 렌더링·동작 코드를 분리해 직접 편집할 수 있도록 개선했습니다.",
     outcome:
-      "짧은 기간 안에 기획부터 배포까지 완료해 실제 이력서 사이트로 운영하고 있습니다. AI 코드 에이전트 활용 역량뿐 아니라 TypeScript와 웹 개발 전반에 대한 학습 역량도 함께 쌓았습니다.",
-    technologies: ["Next.js", "Vercel", "Codex", "Claude Code"],
+      "GitHub main 브랜치와 Vercel을 연결해 푸시 시 자동 배포되는 개인 포트폴리오로 운영하고 있습니다. PC·모바일 미리보기에서 영상 재생, 가로 넘침, 메뉴·프로젝트 패널과 키보드 동작을 점검했습니다. 실제 사용 중 발견한 문제를 요구사항으로 구체화하고 AI의 구현 결과를 확인하며, 콘텐츠 수정부터 검증·배포까지 반복하는 작업 흐름을 구축했습니다.",
+    technologies: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Canvas 2D",
+      "Media Source Extensions",
+      "GitHub",
+      "Vercel",
+      "Codex",
+    ],
     links: [
       {
-        label: "개발 기록",
-        href: "https://velog.io/@hjb825/Claude-Code%EB%A1%9C-%EC%9D%B4%EB%A0%A5%EC%84%9C-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A7%8C%EB%93%A4%EB%A9%B0-%EC%8D%A8%EB%B3%B8-ponytail-headroom",
+        label: "GitHub",
+        href: "https://github.com/zongbeen/zongbeen_portfolio",
       },
     ],
     uiAsset: null,
     illustration: {
       title: "AI",
-      rows: ["기획", "개발·수정", "검토·테스트"],
+      rows: ["요구사항 정의", "구현·검증", "개선·배포"],
     },
   },
 ];

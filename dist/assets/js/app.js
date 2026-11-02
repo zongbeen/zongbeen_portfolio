@@ -80,7 +80,118 @@ function renderFact(fact) {
     </div>
   `;
 }
+// 비교 제목·단계·등록 조건은 WORK의 flowComparison에서 수정합니다.
+function renderFlowComparison(comparison) {
+  return /* HTML */ `
+    <figure class="flow-comparison">
+      <figcaption>
+        <strong>${esc(comparison.title)}</strong>
+        <p>${esc(comparison.description)}</p>
+      </figcaption>
+      <div class="flow-comparison-columns">
+        ${comparison.flows
+          .map(
+            (flow) => /* HTML */ `
+              <div class="flow-comparison-column">
+                <h4>${esc(flow.title)}</h4>
+                <small>${esc(flow.condition)}</small>
+                <ol>
+                  ${flow.steps
+                    .map(
+                      (step, index) => /* HTML */ `
+                        <li
+                          ${index === flow.highlightStep ? 'class="flow-step-highlight"' : ""}
+                        >
+                          <span class="flow-step-number" aria-hidden="true">
+                            ${index + 1}
+                          </span>
+                          <span>${esc(step)}</span>
+                        </li>
+                      `,
+                    )
+                    .join("")}
+                </ol>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+      <p class="flow-comparison-condition">${esc(comparison.prerequisite)}</p>
+    </figure>
+  `;
+}
+
+// SDK 연동 구조와 도입 수치는 WORK의 sdkOverview에서 관리합니다.
+function renderSDKOverview(project) {
+  const sdk = project.sdkOverview;
+  return /* HTML */ `
+    <div class="sdk-overview">
+      <figure class="sdk-overview-diagram">
+        <figcaption>
+          <strong>${esc(sdk.title)}</strong>
+          <p>${esc(sdk.description)}</p>
+        </figcaption>
+        <div class="sdk-client-node">
+          <h4>${esc(sdk.clientTitle)}</h4>
+          <p>${esc(sdk.clientDescription)}</p>
+        </div>
+        <div class="sdk-connector" aria-hidden="true">↕</div>
+        <div class="sdk-core-node">
+          <h4>${esc(sdk.sdkTitle)}</h4>
+          <div class="sdk-capabilities">
+            ${sdk.capabilities
+              .map(
+                (item) => /* HTML */ `
+                  <div>
+                    <small>${esc(item.label)}</small>
+                    <p>${esc(item.title)}</p>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+        </div>
+        <div class="sdk-connector" aria-hidden="true">↕</div>
+        <div class="sdk-platform-node">
+          <h4>${esc(sdk.platformTitle)}</h4>
+          <p>${esc(sdk.platformDescription)}</p>
+        </div>
+        <div class="sdk-registration">
+          <h4>${esc(sdk.registrationTitle)}</h4>
+          <ol>
+            ${sdk.registrationSteps
+              .map(
+                (step) => /* HTML */ `
+                  <li>${esc(step)}</li>
+                `,
+              )
+              .join("")}
+          </ol>
+        </div>
+        <div class="sdk-impact">
+          <strong>${esc(sdk.impactValue)}</strong>
+          <span>${esc(sdk.impactLabel)}</span>
+        </div>
+        <p class="sdk-sample-note">${esc(sdk.sampleNote)}</p>
+      </figure>
+      ${
+        project.flowComparison
+          ? /* HTML */ `
+              <details class="sdk-flow-details">
+                <summary>${esc(sdk.flowDetailsLabel)}</summary>
+                ${renderFlowComparison(project.flowComparison)}
+              </details>
+            `
+          : ""
+      }
+    </div>
+  `;
+}
+
 function workUI(project) {
+  if (project.sdkOverview) return renderSDKOverview(project);
+  if (project.flowComparison)
+    return renderFlowComparison(project.flowComparison);
   if (project.uiAsset)
     return /* HTML */ `
       <div class="ui-slot">
@@ -880,7 +991,6 @@ function enableHeroMatte() {
     };
     video.requestVideoFrameCallback(next);
   } else {
-    // 스크롤 진행 바·메뉴·타임라인·성과 카드
     let scheduled = 0;
     const next = () => {
       if (!canvas.isConnected) {
@@ -1046,6 +1156,8 @@ const counterObserver = new IntersectionObserver(
   { threshold: 0.7 },
 );
 $$("[data-count]").forEach((e) => counterObserver.observe(e));
+
+// 스크롤 진행 바·메뉴·타임라인·성과 카드
 let scheduled = false;
 function scrollFrame() {
   scheduled = false;
