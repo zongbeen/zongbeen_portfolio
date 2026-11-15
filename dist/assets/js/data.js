@@ -17,7 +17,7 @@
 export const PROFILE = {
   name: "한종빈 (zongbeen)",
   role: "iOS 개발자",
-  experienceLabel: "iOS 개발 3년 5개월",
+  experienceLabel: "iOS 개발 3년 8개월",
   headline: "iOS 제품 설계부터 출시·운영까지 연결합니다.",
   summary:
     "C, Objective-C, Swift를 바탕으로 iOS SDK와 앱의 전체 생애주기를 책임진 경험을 정리합니다.",
@@ -61,7 +61,7 @@ export const HERO = {
       download: true,
     },
   ],
-  experience: "iOS 개발 3년 5개월",
+  experience: "iOS 개발 3년 8개월",
   scrollHint: "아래로 스크롤 ↓",
   summary: "설계 · 출시 · 운영",
   media: {
@@ -89,7 +89,7 @@ export const ABOUT = {
     },
     {
       label: "경력",
-      value: "iOS 개발 3년 5개월",
+      value: "iOS 개발 3년 8개월",
     },
     {
       label: "이메일",
@@ -162,6 +162,7 @@ export const SKILLS = [
 // 대표 작업: links[].label을 그대로 버튼에 표시합니다.
 // uiAsset에 이미지 경로를 넣으면 실제 이미지를 표시합니다.
 // 이미지가 없을 때 illustration이 있으면 설명용 UI, null이면 이미지 준비 영역을 표시합니다.
+// uiGallery는 실제 화면과 설명, uiVideo는 실기기 시연 영상입니다. 이미지 경로는 dist 기준입니다.
 // WORK의 cases는 같은 프로젝트 안의 개별 재설계 사례입니다. metrics는 측정 기준과 함께, aiWorkflow는 실제 역할 순서로 적습니다.
 export const WORK = [
   {
@@ -174,7 +175,7 @@ export const WORK = [
     solution:
       "통합인증 SDK를 리팩터링하고 API를 재설계한 뒤, 신규 인증 앱의 iOS 개발을 단독으로 주도했습니다. iOS와 Android의 앱 생명주기, 백그라운드 동작, 보안 정책 차이를 분석해 공통 인증 흐름을 설계하고, 플랫폼 제약을 우회하기보다 UX 일관성과 보안·유지보수성을 기준으로 방향을 제안해 팀 합의를 이끌었습니다. 공동인증서(XSafe), FIDO, OTP 등 내부 모듈을 하나의 앱으로 통합했고, 비즈니스 로직과 에러 코드 정책, UI/UX, API 설계까지 주도했습니다. 플랫폼별 구현 전략과 공통 규칙, 코드 구조를 문서화해 Android 팀과의 협업 기준을 세웠습니다.",
     outcome:
-      "시연에서 완성도를 인정받아 사내 핵심 과제로 선정됐고, 영업팀과 신규 개발 인력을 포함한 통합인증제품 전담팀 신설과 서비스 확장으로 이어졌습니다. App Store에 출시해 현재까지 유지보수와 신규 기능 추가를 이어가고 있습니다. 패키지 형태로 2개 고객사가 사용했고, 클라우드 서비스형 확장 후 6개 고객사가 추가 도입해 총 8개 고객사에 도입했습니다.",
+      "시연에서 완성도를 인정받아 사내 핵심 과제로 선정됐고, 영업팀과 신규 개발 인력을 포함한 통합인증제품 전담팀 신설과 서비스 확장으로 이어졌습니다. App Store에 출시해 현재까지 유지보수와 신규 기능 추가를 이어가고 있습니다. 패키지 형태로 **2개 고객사**가 사용했고, 클라우드 서비스형 확장 후 **6개 고객사**가 추가 도입해 총 **8개 고객사**에 도입했습니다.",
     technologies: [
       "Swift",
       "Objective-C",
@@ -196,7 +197,16 @@ export const WORK = [
         href: "https://apps.apple.com/kr/app/id6475074248",
       },
     ],
-    uiAsset: null,
+    uiVideo: {
+      src: "assets/video/inihub-main.mp4",
+      poster: "assets/images/inihub-main-poster.jpg",
+      title: "이니허브 소개 영상",
+      description: "약 22초. 인증수단 설정, 연동 코드, 간편인증 수단 선택 화면을 보여 줍니다.",
+      wide: true,
+    },
+    uiAsset: "assets/images/inihub.webp",
+    uiAlt: "이니허브 App Store 소개와 인증 서비스 화면",
+    uiCaption: "이니허브 · App Store 소개 화면 (클릭하면 원본 보기)",
     illustration: null,
   },
   {
@@ -209,7 +219,7 @@ export const WORK = [
     solution:
       "패스워드 기반의 iOS SDK에 PIN과 생체인증 방식을 추가했습니다. 생체인증은 PIN으로 발급한 인증서에만 등록할 수 있도록 하고, 해당 인증서의 확장키를 확인한 뒤 생체 등록과 서명을 수행하도록 구성했습니다. 고객사 앱에서 생체인증 API를 호출하면 SDK 내부에서 LocalAuthentication을 통한 인증 요청과 결과 처리를 담당하도록 설계했습니다. Face ID·Touch ID 인증 흐름을 설계하고, 생체인증 실패와 미지원 기기 같은 예외 상황의 처리 흐름을 정의했습니다. PIN과 생체인증 방식의 동작 차이, 플랫폼별 보안 정책 차이를 분석해 공통 기준과 플랫폼별 분리 항목을 구분하고, API 네이밍·오류 코드·인증 흐름을 문서화해 Android 개발자와의 협업 기준을 세웠습니다.",
     outcome:
-      "기존 패스워드 방식에 더해 PIN과 생체인증을 제공하도록 확장했고, 2개 고객사에 도입했습니다. 생체 등록을 마친 인증서는 서명할 인증서를 선택한 뒤 PIN 입력 대신 Face ID·Touch ID로 인증할 수 있습니다. 외부 개발자가 생체인증 API를 바로 참고할 수 있도록 MobilianWeb 샘플 앱을 신규 제작해, 안내 목적에 맞게 불필요한 기능 없이 구성했습니다.",
+      "기존 패스워드 방식에 더해 PIN과 생체인증을 제공하도록 확장했고, **2개 고객사**에 도입했습니다. 생체 등록을 마친 인증서는 서명할 인증서를 선택한 뒤 PIN 입력 대신 Face ID·Touch ID로 인증할 수 있습니다. 외부 개발자가 생체인증 API를 바로 참고할 수 있도록 MobilianWeb 샘플 앱을 신규 제작해, 안내 목적에 맞게 불필요한 기능 없이 구성했습니다.",
     technologies: [
       "Objective-C",
       "C",
@@ -219,7 +229,18 @@ export const WORK = [
       "LocalAuthentication",
       "Keychain",
     ],
-    links: [],
+    links: [
+      {
+        label: "Bio API 분석·설계 문서",
+        href: "https://app.notion.com/p/3a6caf72207f816199c6e1fa3163f4a8",
+      },
+    ],
+    uiVideo: {
+      src: "assets/video/xsafe-biometric-demo.mp4",
+      poster: "assets/images/samples/currentFR00004.PNG",
+      title: "생체 등록부터 Face ID 서명까지",
+      description: "MobilianWeb Swift 샘플 앱의 실기기 시연 · 약 14초. 생체 등록과 PKCS7 생체 서명을 확인할 수 있습니다. 입력값과 인증서 정보는 가렸습니다.",
+    },
     sdkOverview: {
       title: "PIN·생체인증 SDK 확장 구조",
       description:
@@ -282,71 +303,99 @@ export const WORK = [
     problem:
       "XSafe는 기존 Static Library(ST)와 기존 API를 래핑한 Framework·XCFramework(FR)를 함께 제공하며, ST 사용 고객사 지원을 위해 두 방식을 모두 유지보수합니다. 외부 개발자가 API 사용법을 쉽게 파악하도록 FR과 ST 샘플 앱을 각각 재설계했습니다.",
     solution:
-      "FR은 UI와 데이터 흐름을 API 가이드 목적에 맞게 정리했습니다. ST는 최신 SDK의 Scene 생명주기 요구에 대응하면서 MVVM·Service·Context 중심으로 구조를 바꿨습니다. ST의 요구사항과 개선 방향은 직접 정하고, Claude Code에 구현·테스트 작성을 맡긴 뒤 코드와 실기기 동작을 재확인했습니다.",
+      "FR은 UI와 데이터 흐름을 API 가이드 목적에 맞게 정리했습니다. ST는 최신 SDK의 Scene 생명주기 요구에 대응하면서 MVVM·Service·Context 중심으로 구조를 바꿨습니다. 그룹·기능 카드에 API 이름을 표시하고 검색·섹션 접기·실행 로그를 제공해 화면에서 호출 코드를 찾기 쉽게 했습니다. ST의 요구사항과 개선 방향은 직접 정하고, Claude Code에 구현·테스트 작성을 맡긴 뒤 코드와 실기기 동작을 재확인했습니다.",
     outcome:
-      "FR은 API 안내와 기능 확장이 쉬운 구조로 개선했습니다. ST는 주석 제외 전체 코드를 16,386줄에서 6,742줄로, ViewController 개수를 37개에서 4개로 줄였습니다. XIB 38개·4,304줄을 Storyboard로 통합해 XIB를 제거했고, 하드코딩을 73개에서 2개로 축소했습니다. Service 단위 테스트 통과와 전 기능 실기기 테스트 완료 후 고객사 1곳에 배포했습니다.",
+      "FR은 API 안내와 기능 확장이 쉬운 구조로 개선했습니다. ST는 주석 제외 전체 코드를 **16,386줄**에서 **6,742줄**로, ViewController 개수를 **37개**에서 **4개**로 줄였습니다. XIB **38개**·**4,304줄**을 Storyboard로 통합해 XIB를 제거했고, 하드코딩을 **73개**에서 **2개**로 축소했습니다. 서버 응답 해석·쿼리 생성·정책 규칙·ViewModel 등의 단위 테스트와 전 기능 실기기 확인을 거쳐 고객사 **1곳**에 배포했습니다.",
+    uiGallery: {
+      title: "재설계한 샘플 앱의 실제 화면",
+      description: "FR은 기능별 메뉴와 입력 화면으로, ST는 함수 이름을 따라 탐색하는 그룹·카드 구조로 정리했습니다. 이미지를 누르면 원본을 볼 수 있습니다.",
+      screens: [
+        { src: "assets/images/samples/currentFR00001.PNG", label: "FR · 인증센터", caption: "기능을 구분한 Table View 메뉴" },
+        { src: "assets/images/samples/currentST00001.PNG", label: "ST · XSafe 샘플", caption: "API 그룹 탐색과 하단 실행 로그" },
+      ],
+    },
     cases: [
       {
+        uiGallery: {
+          title: "FR · 버튼 나열에서 기능별 메뉴로",
+          description: "같은 인증센터의 재설계 전후입니다. 발급·재발급·갱신·폐기를 공동인증서와 사설인증서로 나눴습니다.",
+          screens: [
+            { src: "assets/images/samples/legacyFR00001.PNG", label: "개선 전 · 인증센터", caption: "한 화면에 여러 기능의 버튼을 나열" },
+            { src: "assets/images/samples/currentFR00001.PNG", label: "개선 후 · 인증센터", caption: "인증서 종류별로 묶은 목록과 화면 이동" },
+            { src: "assets/images/samples/currentFR00002.PNG", label: "서명센터", caption: "서명 종류별로 나눈 메뉴" },
+            { src: "assets/images/samples/currentFR00007.PNG", label: "PKCS7 서명 입력", caption: "인증서 선택·입력·전자서명을 한 화면에서 진행" },
+          ],
+        },
         title: "FR — API 가이드 구조 개선",
         period: "2024.12 ~ 2025.06",
         problem:
           "XSafe SDK와 MobilianWeb 앱은 외부 개발자를 위한 API 가이드 목적의 샘플 앱을 함께 제공합니다. 기존 샘플 앱은 UI 구조가 분산되어 읽기 어렵고 API 가이드와 무관한 기능(NotificationCenter 처리, Custom Delegate 등)이 섞여 있어 고객사의 개선 요청이 들어왔습니다.",
         solution:
-          "부분 수정 대신 샘플 앱 전체를 처음부터 다시 설계하고 구현했습니다. iOS 공식 디자인 가이드와 기본 설정·캘린더 앱의 UI/UX 패턴을 참고해, 버튼 나열 방식을 Table View 기반 UI로 전환하고 Alert 팝업 입력을 전용 입력 화면으로 교체했습니다. 설정 기능은 각 화면 우측 버튼에 배치해 기능 간 연결성을 높였습니다. 데이터 처리도 함께 정리했습니다. 버튼 클릭 시 NotificationCenter로 알림을 보내고 전역 변수에 저장하던 기존 구조는 동시성 이슈와 상태 보장 문제가 있어, 버튼 하나에 하나의 플로우가 대응되는 단일 흐름 구조로 바꾸고 GCD 기반 비동기 처리를 Swift Concurrency(async/await)로 전환했습니다.",
+          "부분 수정 대신 샘플 앱 전체를 처음부터 다시 설계하고 구현했습니다. iOS 공식 디자인 가이드와 기본 설정·캘린더 앱의 UI/UX 패턴을 참고해, 버튼 나열 방식을 Table View 기반 메뉴로 전환하고 인증서 발급 입력을 전용 화면으로 분리했습니다. 설정 기능은 각 화면 우측 버튼에 배치해 기능 간 연결성을 높였습니다. 데이터 처리도 함께 정리했습니다. 버튼 클릭 시 NotificationCenter로 알림을 보내고 전역 변수에 저장하던 기존 구조는 동시성 이슈와 상태 보장 문제가 있어, 버튼 하나에 하나의 플로우가 대응되는 단일 흐름 구조로 바꾸고 서버 통신을 Swift Concurrency(async/await) 기반으로 정리했습니다.",
         outcome:
-          "API 안내에 집중한 구조로 정리해 SDK 가이드 본래의 역할을 명확히 했습니다. Table View 기반 UI와 iOS 디자인 가이드 준수로 외부 개발자가 API를 파악하기 쉬워졌고, 데이터 흐름 단순화와 async/await 전환으로 신규 기능 추가와 UX 수정이 수월해졌습니다. 앱 코드 전체는 약 9,160줄에서 6,176줄로 줄였고, Storyboard와 ViewModel 코드도 함께 축소했습니다.",
+          "API 안내에 집중한 구조로 정리해 SDK 가이드 본래의 역할을 명확히 했습니다. Table View 기반 UI와 iOS 디자인 가이드 준수로 외부 개발자가 API를 파악하기 쉬워졌고, 데이터 흐름 단순화와 async/await 전환으로 신규 기능 추가와 UX 수정이 수월해졌습니다. 앱 코드 전체는 **약 9,160줄**에서 **6,176줄**로 줄였고, Storyboard와 ViewModel 코드도 함께 축소했습니다.",
         metrics: [
           {
             label: "앱 코드 전체",
             value: "약 32.6% 감소",
-            note: "약 9,160줄 → 6,176줄",
+            note: "**약 9,160줄** → **6,176줄**",
           },
           {
             label: "Storyboard",
             value: "32.9% 감소",
-            note: "2,890줄 → 1,938줄",
+            note: "**2,890줄** → **1,938줄**",
           },
           {
             label: "ViewModel (Swift)",
             value: "37.9% 감소",
-            note: "2,517줄 → 1,564줄",
+            note: "**2,517줄** → **1,564줄**",
           },
           {
             label: "SignViewModel (Swift)",
             value: "59.2% 감소",
-            note: "1,022줄 → 417줄",
+            note: "**1,022줄** → **417줄**",
           },
           {
             label: "ManageViewModel (Swift)",
             value: "36.9% 감소",
-            note: "781줄 → 493줄",
+            note: "**781줄** → **493줄**",
           },
         ],
       },
       {
+        uiGallery: {
+          title: "ST · API 탐색과 실행 결과를 한 화면에",
+          description: "나열된 버튼을 그룹·카드 탐색으로 바꾸고, 함수 이름 검색과 실행 로그를 연결했습니다.",
+          screens: [
+            { src: "assets/images/samples/legacyST00001.PNG", label: "개선 전 · 기능 목록", caption: "버튼 중심으로 나열한 API 기능" },
+            { src: "assets/images/samples/currentST00001.PNG", label: "개선 후 · 그룹 목록", caption: "초기화·공동인증서·Bio·PKCS10으로 분류" },
+            { src: "assets/images/samples/currentST00002.PNG", label: "공동인증서 그룹", caption: "인증서 선택·섹션 접기·함수 검색·로그" },
+            { src: "assets/images/samples/currentST00003.PNG", label: "Bio 그룹", caption: "인증서 관리·PIN·서명 API를 카드로 안내" },
+          ],
+        },
         title: "ST — 최신 환경 대응과 구조 개선",
         period: "2026.08 말 ~ 2026.09 중순",
         problem:
-          "Xcode 27·iOS 27·macOS 27 출시 후 실기기 호환성 테스트 중, ST 샘플 앱이 AppDelegate 메서드 호출 전에 런타임 오류로 종료되는 문제를 발견했습니다. 오류 로그와 Apple 공식 문서, Google·GitHub 검색, AI 질의를 교차 확인해 최신 SDK의 UIScene 생명주기 요구를 파악했습니다. 다수의 XIB로 유지보수도 어려워 호환성 수정과 함께 재설계를 진행했습니다.",
+          "최신 개발 환경에서 실기기 호환성을 확인하던 중, ST 샘플 앱이 AppDelegate 메서드 호출 전에 런타임 오류로 종료되는 문제를 발견했습니다. 오류 로그와 관련 문서를 교차 확인하고 Scene 생명주기를 도입하는 방향으로 대응했습니다. 다수의 XIB로 유지보수도 어려워 호환성 수정과 함께 재설계를 진행했습니다.",
         solution:
           "Scene 생명주기를 도입하고 여러 XIB를 하나의 Storyboard로 통합했습니다. 생성된 코드가 여러 곳에 분산된 것을 확인한 뒤 MVVM으로 역할을 나누고 XSafe 함수 호출을 Service 계층에 모으도록 지시했습니다. URL·정규식 패턴·화면 문구·설정값은 Context에 집중시켰습니다. FR에서 사용 중인 대체 함수도 활용했습니다.",
         outcome:
-          "외부 개발자가 Service에서 XSafe 함수 사용법을 직관적으로 읽고 검색할 수 있게 개선했습니다. Claude Code가 작성한 Service 로직 단위 테스트를 실행해 모두 통과한 것을 확인하고, 재설계 샘플의 전 기능을 직접 실기기에서 재확인했습니다. 고객사 1곳에 배포했습니다.",
+          "외부 개발자가 Service에서 XSafe 함수 사용법을 직관적으로 읽고 검색할 수 있게 개선했습니다. Claude Code가 작성한 서버 응답 해석·쿼리 생성·정책 규칙·ViewModel 등의 단위 테스트를 확인했습니다. 실제 XSafe 함수 호출과 서버 연동은 단위 테스트 범위와 구분해, 재설계 샘플의 전 기능을 직접 실기기에서 재확인했습니다. 고객사 **1곳**에 배포했습니다.",
         metrics: [
           {
             label: "전체 코드",
             value: "58.9% 감소",
-            note: "16,386줄 → 6,742줄 · 주석 제외",
+            note: "**16,386줄** → **6,742줄** · 주석 제외",
           },
           {
             label: "XIB 개수",
             value: "38개 → 0개",
-            note: "4,304줄 → 0줄 · Storyboard로 통합",
+            note: "**4,304줄** → **0줄** · Storyboard로 통합",
           },
           {
             label: "ViewController 개수",
             value: "37개 → 4개",
-            note: "개수 기준 약 89.2% 감소",
+            note: "개수 기준 **약 89.2%** 감소",
           },
           {
             label: "하드코딩 지점",
@@ -361,7 +410,7 @@ export const WORK = [
         ],
         aiWorkflow: [
           "직접 재설계 요구사항과 구조 개선 방향을 지정했습니다.",
-          "Claude Code 단독으로 전체 기능 구현과 Service 단위 테스트 작성을 진행했습니다.",
+          "Claude Code 단독으로 전체 기능 구현과 단위 테스트 작성을 진행했습니다.",
           "생성된 코드를 검증해 MVVM·Service 분리를 지시하고, 실기기에서 전 기능을 재확인했습니다.",
         ],
       },
@@ -392,7 +441,7 @@ export const WORK = [
     solution:
       "iOS 12~26 전 운영 범위에서 암호 알고리즘 동작을 검증하고 증적을 수집했으며, 자사 Crypto 모듈의 CAVP 규격 적합성을 확인하기 위해 Hash 검증과 알고리즘별 Vector 파일 기반 테스트를 수행했습니다. OS 버전별 차이와 모듈 동작 패턴을 분석해 일관된 검증 결과를 확보했습니다. 반복 작업은 폴더 자동 스캔, 파일명·알고리즘 정보 추출, 일괄 변환과 결과 매핑까지 Shell 스크립트로 자동화했습니다. 또한 개인키 암호화에 쓰이는 PBKDF2와 전자서명 키 유도에 쓰이는 HASH-DRBG 검증을 신규로 추가해, 알고리즘 규격 분석부터 Vector 기반 테스트 설계, 결과 검증 절차까지 수립했습니다.",
     outcome:
-      "파일 변환·소스 증적·해시 증적 작업을 자동화해 소요 시간을 2일에서 1.5일로 단축했습니다(25% 단축). PBKDF2와 HASH-DRBG를 포함한 Crypto 모듈 전반의 CAVP 규격 적합성을 입증했고, 이를 바탕으로 주요 기업·기관의 보안 심사 통과와 대외 인증 획득에 기여했습니다.",
+      "파일 변환·소스 증적·해시 증적 작업을 자동화해 소요 시간을 **2일**에서 **1.5일**로 단축했습니다(**25%** 단축). PBKDF2와 HASH-DRBG를 포함한 Crypto 모듈 전반의 CAVP 규격 적합성을 입증했고, 이를 바탕으로 주요 기업·기관의 보안 심사 통과와 대외 인증 획득에 기여했습니다.",
     technologies: ["Shell Script", "C", "Objective-C", "CAVP"],
     links: [],
     uiAsset: null,

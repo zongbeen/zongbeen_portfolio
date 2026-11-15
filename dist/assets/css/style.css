@@ -1780,3 +1780,47 @@ footer {
   object-fit: contain;
   object-position: center top;
 }
+
+
+/* 실제 앱 화면: 종횡비를 유지하고 전후 비교를 같은 크기로 표시합니다. */
+.ui-gallery, .ui-demo, .ui-media-stack { min-width: 0; margin: 0; }
+.ui-gallery { margin: 24px 0; }
+.ui-media-heading { margin-bottom: 18px; }
+.ui-media-heading h4 { margin: 0 0 8px; font-size: 13px; line-height: 1.6; }
+.ui-media-heading p { margin: 0; color: #666; font-size: 11px; line-height: 1.8; }
+.ui-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
+.ui-screen { margin: 0; min-width: 0; }
+.ui-screen a { display: flex; align-items: center; justify-content: center; padding: 16px; background: #f0f0f3; border: 1px solid var(--line); border-radius: 16px; }
+.ui-screen a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.ui-screen img { display: block; width: 100%; height: auto; max-height: 400px; object-fit: contain; }
+.ui-screen figcaption { margin-top: 10px; font-size: 11px; line-height: 1.7; }
+.ui-screen figcaption strong, .ui-screen figcaption span { display: block; }
+.ui-screen figcaption span { margin-top: 3px; color: #666; font-size: 10px; }
+.ui-demo video { display: block; width: 100%; max-height: 480px; aspect-ratio: 540 / 1174; background: #f0f0f3; border-radius: 16px; object-fit: contain; }
+.ui-supporting-details { margin-top: 20px; border-top: 1px solid var(--line); }
+.ui-supporting-details > summary { cursor: pointer; padding: 16px 0; font-size: 11px; line-height: 1.7; }
+.ui-supporting-details .sdk-overview { margin-top: 8px; }
+@media (max-width: 760px) {
+  .ui-gallery-grid { gap: 20px 10px; }
+  .ui-screen a { padding: 8px; border-radius: 12px; }
+  .ui-screen img { max-height: 340px; }
+  .ui-demo video { max-height: 440px; }
+}
+
+
+/* 가로 화면 캡처는 원본 비율로 표시합니다. */
+.ui-slot--image { margin: 0; min-height: 0; padding: 0; align-self: start; border-style: solid; }
+.ui-slot--image a { display: block; width: 100%; }
+.ui-slot--image img { display: block; width: 100%; height: auto; }
+.ui-slot--image figcaption { padding: 12px 16px; font-size: 10px; line-height: 1.7; color: #666; }
+.ui-slot--image a:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
+
+
+/* 본문의 정량 성과를 읽기 쉽게 강조합니다. */
+.work-text strong, .work-points strong, .work-case-metrics small strong {
+  color: var(--ink, #111); font-weight: 700;
+}
+
+/* 가로(16:9) 시연 영상은 원본 비율로 표시합니다. */
+.ui-demo--wide video { aspect-ratio: 16 / 9; max-height: none; }
+.ui-media-stack > .ui-slot--image { margin-top: 20px; }

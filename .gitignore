@@ -33,3 +33,6 @@ __pycache__/
 *.swo
 *.png
 *~
+
+# 포트폴리오에 표시하는 실제 샘플 앱 화면
+!/dist/assets/images/samples/*.PNG

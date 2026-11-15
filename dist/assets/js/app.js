@@ -27,6 +27,9 @@ const esc = (text) =>
       ],
   );
 const num = (number) => String(number).padStart(2, "0");
+// 본문의 **수치** 표기를 안전하게 굵은 글씨로 표시합니다.
+const renderEmphasis = (text) =>
+  esc(text).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 // 문장 속 \n을 HTML 줄바꿈으로 표시합니다.
 const renderLines = (text) => String(text).split("\n").map(esc).join("<br>");
 const label = (number, text) => /* HTML */ `
@@ -188,19 +191,78 @@ function renderSDKOverview(project) {
   `;
 }
 
+// 실제 화면은 원본 링크와 캡션을 함께 제공합니다.
+function renderUIGallery(gallery) {
+  return /* HTML */ `
+    <section class="ui-gallery" aria-label="${esc(gallery.title)}">
+      <div class="ui-media-heading">
+        <h4>${esc(gallery.title)}</h4>
+        <p>${esc(gallery.description)}</p>
+      </div>
+      <div class="ui-gallery-grid">
+        ${gallery.screens.map((screen) => /* HTML */ `
+          <figure class="ui-screen">
+            <a href="${esc(screen.src)}" target="_blank" rel="noopener noreferrer"
+               aria-label="${esc(screen.label)} 원본 보기 (새 탭)">
+              <img src="${esc(screen.src)}" alt="${esc(screen.label)}: ${esc(screen.caption)}"
+                   loading="lazy" decoding="async" width="1206" height="2622">
+            </a>
+            <figcaption><strong>${esc(screen.label)}</strong><span>${esc(screen.caption)}</span></figcaption>
+          </figure>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderUIAsset(project) {
+  return /* HTML */ `
+      <figure class="ui-slot ui-slot--image">
+        <a href="${esc(project.uiAsset)}" target="_blank" rel="noopener noreferrer"
+           aria-label="${esc(project.uiAlt || project.title)} 원본 보기 (새 탭)">
+          <img src="${esc(project.uiAsset)}"
+               alt="${esc(project.uiAlt || `${project.title} 실제 화면`)}"
+               loading="lazy" decoding="async" />
+        </a>
+        ${project.uiCaption ? `<figcaption>${esc(project.uiCaption)}</figcaption>` : ""}
+      </figure>
+    `;
+}
+
+function renderUIVideo(video) {
+  return /* HTML */ `
+    <figure class="ui-demo${video.wide ? " ui-demo--wide" : ""}">
+      <figcaption class="ui-media-heading">
+        <h4>${esc(video.title)}</h4>
+        <p>${esc(video.description)}</p>
+      </figcaption>
+      <video controls playsinline preload="none" poster="${esc(video.poster)}"
+             aria-label="${esc(video.title)} 실기기 시연">
+        <source src="${esc(video.src)}" type="video/mp4">
+        <a href="${esc(video.src)}">시연 영상 내려받기</a>
+      </video>
+    </figure>
+  `;
+}
+
 function workUI(project) {
+  if (project.uiVideo) return /* HTML */ `
+    <div class="ui-media-stack">
+      ${renderUIVideo(project.uiVideo)}
+      ${project.uiAsset ? renderUIAsset(project) : ""}
+      ${project.sdkOverview ? /* HTML */ `
+        <details class="ui-supporting-details">
+          <summary>SDK 확장 구조와 인증 흐름 보기</summary>
+          ${renderSDKOverview(project)}
+        </details>
+      ` : ""}
+    </div>
+  `;
+  if (project.uiGallery) return renderUIGallery(project.uiGallery);
   if (project.sdkOverview) return renderSDKOverview(project);
   if (project.flowComparison)
     return renderFlowComparison(project.flowComparison);
-  if (project.uiAsset)
-    return /* HTML */ `
-      <div class="ui-slot">
-        <img
-          src="${esc(project.uiAsset)}"
-          alt="${esc(project.title)} 실제 화면"
-        />
-      </div>
-    `;
+  if (project.uiAsset) return renderUIAsset(project);
   if (!project.illustration)
     return /* HTML */ `
       <div class="ui-slot" data-ui-slot="${project.id}">
@@ -476,33 +538,37 @@ function renderWorkCases(cases) {
                 <small>${esc(item.period)}</small>
               </summary>
               <div class="work-case-content">
-                <p class="work-text">${esc(item.problem)}</p>
+                ${item.uiGallery ? renderUIGallery(item.uiGallery) : ""}
+                <p class="work-text">${renderEmphasis(item.problem)}</p>
                 <div class="work-points">
                   <div>
                     <h4>${COPY.workApproach}</h4>
-                    <p tabindex="0">${esc(item.solution)}</p>
+                    <p tabindex="0">${renderEmphasis(item.solution)}</p>
                   </div>
                   <div>
                     <h4>${COPY.workOutcome}</h4>
-                    <p tabindex="0">${esc(item.outcome)}</p>
+                    <p tabindex="0">${renderEmphasis(item.outcome)}</p>
                   </div>
                 </div>
                 ${
                   item.metrics?.length
                     ? /* HTML */ `
+                        <details class="ui-supporting-details">
+                        <summary>코드 규모 변화 · 측정 당시 기준</summary>
                         <dl class="work-case-metrics">
                           ${item.metrics
                             .map(
                               (metric) => /* HTML */ `
                                 <div>
                                   <dt>${esc(metric.label)}</dt>
-                                  <dd>${esc(metric.value)}</dd>
-                                  <small>${esc(metric.note)}</small>
+                                  <dd><strong>${esc(metric.value)}</strong></dd>
+                                  <small>${renderEmphasis(metric.note)}</small>
                                 </div>
                               `,
                             )
                             .join("")}
                         </dl>
+                        </details>
                       `
                     : ""
                 }
@@ -565,21 +631,21 @@ function renderWork() {
                     class="work-detail ${p.cases?.length ? "work-detail--cases" : ""}"
                   >
                     <div>
-                      <p class="work-text">${p.problem}</p>
+                      <p class="work-text">${renderEmphasis(p.problem)}</p>
                       <div class="work-points">
                         <div>
                           <h4>${COPY.workApproach}</h4>
-                          <p tabindex="0">${p.solution}</p>
+                          <p tabindex="0">${renderEmphasis(p.solution)}</p>
                         </div>
                         <div>
                           <h4>${COPY.workOutcome}</h4>
-                          <p tabindex="0">${p.outcome}</p>
+                          <p tabindex="0">${renderEmphasis(p.outcome)}</p>
                         </div>
                       </div>
                     </div>
                     ${p.cases?.length ? "" : workUI(p)}
                   </div>
-                  ${p.cases?.length ? renderWorkCases(p.cases) : ""}
+                  ${p.cases?.length ? `${p.uiGallery ? renderUIGallery(p.uiGallery) : ""}${renderWorkCases(p.cases)}` : ""}
                   <div class="tool-chips">
                     ${p.technologies
                       .map(
@@ -866,6 +932,7 @@ function activatePanel(panel) {
     p.classList.toggle("active", active);
     p.querySelector("button").setAttribute("aria-expanded", active);
     p.querySelector(".work-body").inert = !active;
+    if (!active) p.querySelectorAll(".ui-demo video").forEach((demo) => demo.pause());
   });
 }
 $$(".work-panel").forEach((p) => {
@@ -1216,3 +1283,7 @@ function schedule() {
 addEventListener("scroll", schedule, { passive: true });
 addEventListener("resize", schedule);
 scrollFrame();
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) $$(".ui-demo video").forEach((video) => video.pause());
+});
