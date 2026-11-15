@@ -135,6 +135,7 @@ export const SKILLS = [
       "Realm",
       "LocalAuthentication",
       "Keychain",
+      "Deep Link",
       "AVFoundation",
       "XCTest",
       "Swift Concurrency",
@@ -190,6 +191,7 @@ export const WORK = [
       "LocalAuthentication",
       "Keychain",
       "AVFoundation",
+      "Deep Link",
     ],
     links: [
       {

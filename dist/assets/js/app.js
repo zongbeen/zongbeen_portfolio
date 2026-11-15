@@ -775,9 +775,17 @@ function renderContact() {
     >
       <div class="container">
         ${label(6, COPY.sectionLabels.contact)}
-        <h2 class="contact-heading" id="contact-title">
+        <h2
+          class="contact-heading"
+          id="contact-title"
+          aria-label="${esc(CONTACT.title.join(" "))}"
+        >
           ${CONTACT.title
-            .map((t) => [...t].map((c) => `<span>${esc(c)}</span>`).join(""))
+            .map((t) =>
+              [...t]
+                .map((c) => `<span aria-hidden="true">${esc(c)}</span>`)
+                .join(""),
+            )
             .join("<br>")}
         </h2>
         <div class="contact-bottom">
@@ -796,6 +804,7 @@ function renderContact() {
                       href="${esc(u)}"
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="${esc(t)} (새 탭)"
                     >
                       ${t} ↗
                     </a>
@@ -1188,13 +1197,21 @@ $(".fullscreen").addEventListener("click", async () => {
   }
 });
 
-// 이메일 복사
+// 이메일 복사: 안내 문구는 2초 뒤 원래 문구로 돌아옵니다.
+let copyTimer;
+function showCopyLabel(text) {
+  $(".copy").textContent = text;
+  clearTimeout(copyTimer);
+  copyTimer = setTimeout(() => {
+    $(".copy").textContent = COPY.copyEmail;
+  }, 2000);
+}
 $(".copy").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(CONTACT.email);
-    $(".copy").textContent = COPY.copiedEmail;
+    showCopyLabel(COPY.copiedEmail);
   } catch {
-    $(".copy").textContent = COPY.copyEmailFallback;
+    showCopyLabel(COPY.copyEmailFallback);
     const range = document.createRange();
     range.selectNodeContents($(".email"));
     const selection = getSelection();
