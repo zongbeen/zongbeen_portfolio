@@ -127,6 +127,7 @@ export const SKILLS = [
       "UIKit",
       "SwiftUI",
       "Foundation",
+      "KVO",
       "Combine",
       "URLSession",
       "Alamofire",
@@ -315,7 +316,7 @@ export const WORK = [
     problem:
       "XSafe는 기존 Static Library(ST)와 기존 API를 래핑한 Framework·XCFramework(FR)를 함께 제공하며, ST 사용 고객사 지원을 위해 두 방식을 모두 유지보수합니다. 외부 개발자가 API 사용법을 쉽게 파악하도록 FR과 ST 샘플 앱을 각각 재설계했습니다.",
     solution:
-      "FR은 UI와 데이터 흐름을 API 가이드 목적에 맞게 정리했습니다. ST는 최신 SDK의 Scene 생명주기 요구에 대응하면서 MVVM·Service·Context 중심으로 구조를 바꿨습니다. 그룹·기능 카드에 API 이름을 표시하고 검색·섹션 접기·실행 로그를 제공해 화면에서 호출 코드를 찾기 쉽게 했습니다. ST의 요구사항과 개선 방향은 직접 정하고, Claude Code에 구현·테스트 작성을 맡긴 뒤 코드와 실기기 동작을 재확인했습니다.",
+      "FR은 UI와 데이터 흐름을 API 가이드 목적에 맞게 정리했습니다. ST는 최신 SDK의 Scene 생명주기 요구에 대응하면서 MVVM·Service·Context 중심으로 구조를 바꿨습니다. 그룹·기능 카드에 API 이름을 표시하고 검색·섹션 접기·실행 로그를 제공해 화면에서 호출 코드를 찾기 쉽게 했습니다. KVO로 여러 상태를 관찰해 결과를 해석하던 방식은 Swift의 Result로 성공·실패를 직접 전달하도록 전환했습니다. ST의 요구사항과 개선 방향은 직접 정하고, Claude Code에 구현·테스트 작성을 맡긴 뒤 코드와 실기기 동작을 재확인했습니다.",
     outcome:
       "FR은 API 안내와 기능 확장이 쉬운 구조로 개선했습니다. ST는 주석 제외 전체 코드를 **16,386줄**에서 **6,742줄**로, ViewController 개수를 **37개**에서 **4개**로 줄였습니다. XIB **38개**·**4,304줄**을 Storyboard로 통합해 XIB를 제거했고, 하드코딩을 **73개**에서 **2개**로 축소했습니다. 서버 응답 해석·쿼리 생성·정책 규칙·ViewModel 등의 단위 테스트와 전 기능 실기기 확인을 거쳐 고객사 **1곳**에 배포했습니다.",
     uiGallery: {
@@ -436,9 +437,19 @@ export const WORK = [
       "MVC",
       "MVVM",
       "Swift Concurrency",
+      "KVO",
       "Claude Code",
     ],
-    links: [],
+    links: [
+      {
+        label: "async/await 전환 문서",
+        href: "https://app.notion.com/p/41bcaf72207f8110abfbf8c09a5a06c5",
+      },
+      {
+        label: "KVO → Swift Result 문서",
+        href: "https://app.notion.com/p/41bcaf72207f811f92e7ca4b07e757d7",
+      },
+    ],
     uiAsset: null,
     metric: null,
     illustration: null,
