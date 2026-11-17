@@ -204,6 +204,10 @@ export const WORK = [
         label: "딥링크 구현 분석 문서",
         href: "https://app.notion.com/p/41acaf72207f8116aa95d35ae2220970",
       },
+      {
+        label: "Coordinator 패턴 적용 문서",
+        href: "https://app.notion.com/p/41bcaf72207f810a8a16f34d2415b880",
+      },
     ],
     uiVideo: {
       src: "assets/video/inihub-main.mp4",
