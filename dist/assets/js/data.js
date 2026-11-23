@@ -455,6 +455,25 @@ export const WORK = [
     illustration: null,
   },
   {
+    id: "pqc-key-agreement",
+    title: "PQC(양자내성암호) 키 합의 기능 개발",
+    period: "2026.08 ~ 2026.11 (8월 착수 후 일정 조정으로 중단, 11월 재개)",
+    role: "C Core 라이브러리 단독 개발 / Java 서버 쪽은 다른 담당자가 개발",
+    problem:
+      "양자컴퓨터가 RSA·ECC 기반 키 교환을 풀 수 있게 되면, 지금 수집해 둔 통신을 나중에 복호할 위험이 있습니다. 서버와 PQC 키 합의를 하려면 클라이언트 Core에도 해당 연산이 필요했습니다.",
+    solution:
+      "C Core 라이브러리에 ML-KEM(512·768·1024)의 키 생성·캡슐화·역캡슐화와 ECDH(P-256) 연산을 추가했습니다. 두 방식의 결과를 함께 사용하는 하이브리드 키 합의 구조로 구성하고, 외부에서 받은 공개키는 엄격하게 파싱한 뒤 곡선 위의 점인지 검증하도록 했습니다.",
+    outcome:
+      "하이브리드 PQC 키 합의에 필요한 클라이언트 쪽 연산을 Core에 추가해 개발을 마쳤습니다.",
+    technologies: ["C", "PQC"],
+    links: [],
+    uiAsset: null,
+    illustration: {
+      title: "PQC",
+      rows: ["ML-KEM", "ECDH(P-256)", "하이브리드 합의"],
+    },
+  },
+  {
     id: "cavp-validation",
     title: "CAVP 검증 심사 리드 및 Vector 파일 변환 자동화",
     period: "2023.07 ~ 현재 (매년 4회 진행 중)",
@@ -528,7 +547,7 @@ export const CAREER = [
     outcomes: [
       "연 4개 고객사의 KCMVP 인증을 모두 완료했으며, 담당한 인증 건은 모두 통과했습니다.",
       "이니허브 SDK와 App의 출시·도입·배포를 완료했습니다.",
-      "PQC(양자내성암호) 기능은 현재 개발을 진행 중입니다.",
+      "PQC(양자내성암호) 키 합의 기능 개발을 완료했습니다.",
     ],
   },
 ];
