@@ -22,7 +22,7 @@ export const PROFILE = {
   summary:
     "C, Objective-C, Swift를 바탕으로 iOS SDK와 앱의 전체 생애주기를 책임진 경험을 정리합니다.",
   displayName: "한종빈",
-  idRole: "iOS개발자 3년차",
+  idRole: "iOS개발자 4년차",
   handle: "ZONGBEEN",
   email: "hjb825@naver.com",
   phone: "010-5050-5276",
@@ -159,6 +159,10 @@ export const SKILLS = [
     title: "개발 도구",
     skills: ["Xcode", "Git", "Swift Package Manager", "CocoaPods", "Jenkins"],
   },
+  {
+    title: "AI",
+    skills: ["Claude Code", "Codex", "Higgsfield"],
+  },
 ];
 
 // 대표 작업: links[].label을 그대로 버튼에 표시합니다.
@@ -175,7 +179,7 @@ export const WORK = [
     problem:
       "MSM(모바일 보안모듈) 유지보수 부담이 커지는 상황에서, 통합인증 시장에서 자사만 통합인증 앱이 없었습니다. 공동인증·금융인증·간편인증이 각각 분리되어 있어 iOS 인력 한 명이 대응하기에는 비용이 컸습니다.",
     solution:
-      "통합인증 SDK를 리팩터링하고 API를 재설계한 뒤, 신규 인증 앱의 iOS 개발을 단독으로 주도했습니다. iOS와 Android의 앱 생명주기, 백그라운드 동작, 보안 정책 차이를 분석해 공통 인증 흐름을 설계하고, 플랫폼 제약을 우회하기보다 UX 일관성과 보안·유지보수성을 기준으로 방향을 제안해 팀 합의를 이끌었습니다. 공동인증서(XSafe), FIDO, OTP 등 내부 모듈을 하나의 앱으로 통합했고, 비즈니스 로직과 에러 코드 정책, UI/UX, API 설계까지 주도했습니다. 플랫폼별 구현 전략과 공통 규칙, 코드 구조를 문서화해 Android 팀과의 협업 기준을 세웠습니다. 인증 진입은 Universal Link와 URL Scheme을 모두 구현하고, 어느 방식으로 URL을 받아도 같은 인증 흐름으로 연결했습니다. QR 스캔도 이 흐름에 합류해 OTP·V1·V2 인증을 시작합니다. URL Scheme은 inihubapp://로 앱을 직접 호출하거나 inihubappsample://로 원래 앱에 복귀할 때 사용합니다.",
+      "통합인증 SDK를 리팩터링하고 API를 재설계한 뒤, 신규 인증 앱의 iOS 개발을 단독으로 주도했습니다. iOS와 Android의 앱 생명주기, 백그라운드 동작, 보안 정책 차이를 분석해 공통 인증 흐름을 설계하고, 플랫폼 제약을 우회하기보다 UX 일관성과 보안·유지보수성을 기준으로 방향을 제안해 팀 합의를 이끌었습니다. 공동인증서(XSafe), FIDO, OTP 등 내부 모듈을 하나의 앱으로 통합했고, 비즈니스 로직과 에러 코드 정책, UI/UX, API 설계까지 주도했습니다. 플랫폼별 구현 전략과 공통 규칙, 코드 구조를 문서화해 Android 팀과의 협업 기준을 세웠습니다. 인증 진입은 Universal Link와 URL Scheme을 모두 구현하고, 어느 방식으로 URL을 받아도 같은 인증 흐름으로 연결했습니다. QR 스캔도 이 흐름에 합류해 OTP·V1·V2 인증을 시작합니다. 화면 전환은 분기가 많고 재사용하는 화면이 많아, 흐름을 관리하기 쉽도록 Coordinator 패턴으로 구성했습니다. URL Scheme은 inihubapp://로 앱을 직접 호출하거나 inihubappsample://로 원래 앱에 복귀할 때 사용합니다.",
     outcome:
       "시연에서 완성도를 인정받아 사내 핵심 과제로 선정됐고, 영업팀과 신규 개발 인력을 포함한 통합인증제품 전담팀 신설과 서비스 확장으로 이어졌습니다. App Store에 출시해 현재까지 유지보수와 신규 기능 추가를 이어가고 있습니다. 패키지 형태로 **2개 고객사**가 사용했고, 클라우드 서비스형 확장 후 **6개 고객사**가 추가 도입해 총 **8개 고객사**에 도입했습니다.",
     technologies: [
