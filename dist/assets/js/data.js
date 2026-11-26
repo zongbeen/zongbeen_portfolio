@@ -459,6 +459,30 @@ export const WORK = [
     illustration: null,
   },
   {
+    id: "ios-cicd-jenkins",
+    title: "iOS 빌드·배포 자동화(Jenkins)",
+    period: "운영 중",
+    role: "빌드 노드 연결·job 구성·운영",
+    problem:
+      "iOS 제품이 여러 개여서, 빌드와 배포를 한곳에서 일관되게 실행할 수 있는 환경이 필요했습니다.",
+    solution:
+      "이미 운영 중인 Jenkins 환경에 macOS 빌드 PC를 SSH Agent로 연결하고, iOS 전 제품의 빌드·배포 job을 직접 만들었습니다. 구축 절차는 사내 문서로 정리했습니다.",
+    outcome:
+      "iOS 전 제품의 배포에 이 job을 사용하고 있습니다.",
+    technologies: ["Jenkins", "macOS 빌드 PC", "SSH Agent", "Confluence"],
+    links: [
+      {
+        label: "Jenkins 구축 문서",
+        href: "https://app.notion.com/p/424caf72207f81fdad9bc40d8fd940e6",
+      },
+    ],
+    uiAsset: null,
+    illustration: {
+      title: "CI/CD",
+      rows: ["빌드 노드 연결", "job 구성", "배포 운영"],
+    },
+  },
+  {
     id: "pqc-key-agreement",
     title: "PQC(양자내성암호) 키 합의 기능 개발",
     period: "2026.08 ~ 2026.11 (8월 착수 후 일정 조정으로 중단, 11월 재개)",
@@ -470,7 +494,12 @@ export const WORK = [
     outcome:
       "하이브리드 PQC 키 합의에 필요한 클라이언트 쪽 연산을 Core에 추가해 개발을 마쳤습니다.",
     technologies: ["C", "PQC"],
-    links: [],
+    links: [
+      {
+        label: "PQC 설계 요약 문서",
+        href: "https://app.notion.com/p/424caf72207f818db22cf6757886a79d",
+      },
+    ],
     uiAsset: null,
     illustration: {
       title: "PQC",
@@ -546,6 +575,7 @@ export const CAREER = [
       "이니허브에 공동인증, 금융인증, 간편인증, 본인확인, 신분증 인증, OTP, FIDO 인증 수단을 구현했습니다.",
       "INISAFE XSafe와 INISAFE MobilianWeb을 유지보수하며 기능을 추가하고, 생체인증을 도입했으며 샘플 앱을 리팩토링했습니다.",
       "C 기반 Core·PKI·CMP 모듈을 유지보수하고, 인증서 길이 3072 확장과 PQC(양자내성암호) 기능을 추가했습니다.",
+      "Jenkins 빌드 노드를 연결하고 iOS 전 제품의 빌드·배포 job을 구성해 배포에 사용하고 있습니다.",
       "KCMVP 검증모듈 인증 대응을 진행했습니다.",
     ],
     outcomes: [
